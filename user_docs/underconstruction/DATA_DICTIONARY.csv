@@ -1,0 +1,19 @@
+THIS FILE IS CURRENTLY A FILLER VERSION TREAT IT AS REPRESENTATIVE BUT NOT AUTHORITATIVE,,,,,, 
+column_name,label,tier,in_poc,public_transform,data_type,notes
+case_id,Internal case reference,never,no,removed,string,Replace with surrogate key if a join key is needed
+deceased_name,Full name of deceased,never,no,removed,string,Never exposed in any tier output
+date_of_birth,Date of birth,public,yes,year-month,date,Drop day component
+date_of_death,Date of death,public,yes,year-month,date,Drop day component
+age_at_death,Age at death (years),public,yes,as-is,integer,Core field
+sex,Sex,public,yes,as-is,string,Core field
+residence_postcode,Residence postcode,public,yes,as-is,string,Client accepts this granularity; revisit if needed
+residence_address,Residence street address,never,no,removed,string,Identifying
+location_of_death,Location/region of death,public,yes,as-is,string,Core field
+primary_substance,Primary substance involved,public,yes,as-is,string,One of the ~50 core fields
+secondary_substances,Other substances,public,yes,as-is,string,Core field
+cause_of_death,Cause of death,public,yes,as-is,string,Core field
+coroner_notes,Coroner free-text notes,restricted,no,full-tier-only,string,Free text; full tier only
+next_of_kin_name,Next of kin name,never,no,removed,string,LIVING third party — confirm treatment
+referring_officer,Referring officer,restricted,no,full-tier-only,string,Confirm treatment
+EXAMPLE_filler_col,Sparse/rarely-used field,restricted,no,full-tier-only,string,One of the ~650 rarely-used columns; default to restricted unless promoted
+FILL_IN_REMAINING_COLUMNS,,,,,,Add one row per source column. tier = public|restricted|never. in_poc = yes|no. public_transform = as-is|year-month|removed|full-tier-only|<custom>
