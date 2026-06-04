@@ -24,7 +24,7 @@ SAV_PATH   <- file.path("poc", "data", "full", "dummy_source.sav")
 PARQ_PATH  <- file.path("poc", "data", "full", "dummy_source.parquet")
 DICT_PATH  <- file.path("user_docs", "underconstruction", "DATA_DICTIONARY.csv")
 OUT_FULL   <- file.path("poc", "data", "full",   "full_restricted.parquet")
-OUT_PUBLIC <- file.path("poc", "data", "public", "public_slim.parquet")
+OUT_PUBLIC <- file.path("poc", "data", "public", "public_slim.csv")
 
 # --- Load source data --------------------------------------------------------
 if (file.exists(SAV_PATH)) {
@@ -85,8 +85,8 @@ for (i in seq_len(nrow(public_dict))) {
 }
 
 dir.create(dirname(OUT_PUBLIC), recursive = TRUE, showWarnings = FALSE)
-arrow::write_parquet(df_public, OUT_PUBLIC, compression = "snappy")
-message(sprintf("Wrote public_slim.parquet:     %d rows x %d cols", nrow(df_public), ncol(df_public)))
+write.csv(df_public, OUT_PUBLIC, row.names = FALSE)
+message(sprintf("Wrote public_slim.csv:         %d rows x %d cols", nrow(df_public), ncol(df_public)))
 
 message("\nPublic columns: ", paste(names(df_public), collapse = ", "))
 message("\nETL complete. Check above — no restricted/never column names should appear in public columns.")

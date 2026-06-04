@@ -91,4 +91,9 @@
 - Why: The CSV download was updated to respect the user's column selection on the Data tab; the JSON must carry the same information so the fulfilment GUI can reproduce the exact extract (rows AND columns) the requester saw.
 - Rules out: The fulfilment GUI (Component 3) reading only `filters` from the request file — it must also apply `columns_selected` to the full-detail extract.
 
+## 011. Public slim output: parquet → CSV   (2026-06-04, by human+claude)
+- Decision: ETL now writes `public_slim.csv` (base R `write.csv`) instead of `public_slim.parquet`. The app reads it with `read.csv()`. `full_restricted.parquet` stays as parquet (used only in the local fulfilment tool where `arrow` is always available).
+- Why: Eliminates the `arrow`/webR compatibility risk that was blocking Shinylive export (Decision 003). At 44 public columns × 60k rows the CSV is small enough (~5–8 MB) that there is no meaningful size or performance penalty vs parquet.
+- Rules out / watch point: If the public column count ever grows significantly above ~100 columns, or the public file exceeds ~15 MB, revisit parquet + a webR-compatible reader (nanoparquet or DuckDB-WASM) as noted in Decision 003.
+
 <!-- Add new entries below this line -->

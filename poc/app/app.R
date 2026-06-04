@@ -6,8 +6,8 @@
 # Run from repo root:
 #   shiny::runApp("poc/app")
 #
-# Dependencies: shiny, arrow, dplyr, ggplot2, DT, jsonlite
-#   install.packages(c("shiny","arrow","dplyr","ggplot2","DT","jsonlite"))
+# Dependencies: shiny, dplyr, ggplot2, DT, jsonlite
+#   install.packages(c("shiny","dplyr","ggplot2","DT","jsonlite"))
 #
 # Shinylive note: arrow has not yet been validated in webR. If export to
 # Shinylive is needed, swap arrow::read_parquet() for nanoparquet or ship the
@@ -16,18 +16,16 @@
 
 suppressPackageStartupMessages({
   library(shiny)
-  library(arrow)
   library(dplyr)
   library(ggplot2)
   library(DT)
   library(jsonlite)
 })
 
-DATA_PATH <- "../data/public/public_slim.parquet"
+DATA_PATH <- "public_slim.csv"
 
 # Load once at startup and derive year from the "YYYY-MM" date_of_death string
-df_raw <- arrow::read_parquet(DATA_PATH) |>
-  as.data.frame() |>
+df_raw <- read.csv(DATA_PATH, stringsAsFactors = FALSE) |>
   mutate(death_year = as.integer(substr(date_of_death, 1, 4)))
 
 year_range  <- range(df_raw$death_year,    na.rm = TRUE)
@@ -138,6 +136,11 @@ ui <- fluidPage(
         tabPanel(
           "Data",
           br(),
+          div(style = "margin-bottom: 6px;",
+            actionButton("select_all_cols",   "Select all",   class = "btn-sm btn-outline-secondary"),
+            actionButton("deselect_all_cols", "Deselect all", class = "btn-sm btn-outline-secondary",
+                         style = "margin-left: 6px;")
+          ),
           checkboxGroupInput("col_select", "Columns to show:",
                              choices  = all_public_cols,
                              selected = all_public_cols,
@@ -196,6 +199,14 @@ server <- function(input, output, session) {
         primary_substance %in% input$substance_sel,
         cause_of_death    %in% input$cause_sel
       )
+  })
+
+  # --- Column select / deselect all ------------------------------------------
+  observeEvent(input$select_all_cols, {
+    updateCheckboxGroupInput(session, "col_select", selected = all_public_cols)
+  })
+  observeEvent(input$deselect_all_cols, {
+    updateCheckboxGroupInput(session, "col_select", selected = character(0))
   })
 
   # --- Reset -----------------------------------------------------------------
@@ -325,7 +336,7 @@ server <- function(input, output, session) {
     content = function(file) {
       out_cols <- intersect(input$col_select, names(df_filtered()))
       if (length(out_cols) == 0) out_cols <- intersect(all_public_cols, names(df_filtered()))
-      write.csv(df_filtered()[, out_cols], file, row.names = FALSE)
+      write.csv(df_filtered()[, out_cols, drop = FALSE], file, row.names = FALSE)
     }
   )
 

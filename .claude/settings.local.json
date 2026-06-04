@@ -5,7 +5,13 @@
       "Bash(sudo Rscript *)",
       "Bash(sudo apt-get install -y libuv1-dev)",
       "Bash(/usr/local/share/nvm/versions/node/v24.16.0/bin/playwright install *)",
-      "Bash(grep -E \"^firefox$\")"
+      "Bash(grep -E \"^firefox$\")",
+      "Bash(sudo apt-get install -y libarchive-dev)",
+      "Bash(chmod 755 /workspaces/Agentic-UK-Drug-deaths-website/poc/site)",
+      "Bash(python3 -c \"import json,sys; d=json.load\\(sys.stdin\\); print\\(list\\(d.keys\\(\\)\\)\\)\")",
+      "Bash(python3 *)",
+      "Bash(python3 -m http.server 8080)",
+      "Bash(echo \"Server PID: $!\")"
     ]
   }
 }
