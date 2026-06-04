@@ -96,4 +96,16 @@
 - Why: Eliminates the `arrow`/webR compatibility risk that was blocking Shinylive export (Decision 003). At 44 public columns × 60k rows the CSV is small enough (~5–8 MB) that there is no meaningful size or performance penalty vs parquet.
 - Rules out / watch point: If the public column count ever grows significantly above ~100 columns, or the public file exceeds ~15 MB, revisit parquet + a webR-compatible reader (nanoparquet or DuckDB-WASM) as noted in Decision 003.
 
+## 012. Missing value normalisation in public viewer   (2026-06-04, by human+claude)
+- Decision: At app load time, the following values in categorical filter columns (sex, location_of_death, primary_substance, secondary_substances, cause_of_death) are collapsed to the display label `"Missing"`: R `NA`, empty string `""`, and the strings `"NA"`, `"NULL"`, `"null"`, `"N/A"`, `"n/a"`, `"Error"`, `"error"`, `"Inf"`, `"-Inf"`. For numeric columns, `Inf`/`-Inf` are coerced to `NA` so sliders ignore them.
+- Why: Real data will contain dirty values from multiple sources. Displaying a blank checkbox label (or crashing on Inf) is confusing to users. Collapsing to "Missing" keeps the UI clean.
+- IMPORTANT — what this hides: The source distinctions between these sentinel types (e.g. blank vs NULL vs string "NA") are meaningful to the client and may reflect different data collection outcomes. These distinctions are **preserved in the `.sav` and `full_restricted.parquet`** and are never altered by this normalisation. If the client later needs to distinguish missing-value subtypes in the public view, this sentinel list must be revisited.
+- Rules out: Showing raw blank/null values as filter choices in the public app.
+
+## 013. Known limitation — chart rendering latency in Shinylive   (2026-06-04, by human+claude)
+- Observation: Filter changes trigger 4–6 second re-renders in the Shinylive (webR) app. The data table tab is fast; the bottleneck is the four ggplot2 charts re-aggregating 60k rows on every filter change inside the WebAssembly runtime (~3–10× slower than native R).
+- Not fixed now: no quick fix exists that doesn't significantly change the ETL and app architecture.
+- Likely solution when addressed: pre-aggregate chart data (counts by year, substance, location, age band) at ETL time and ship lookup tables alongside the CSV. The app then joins rather than group-summarises, cutting webR work dramatically. This will need design discussion before implementation.
+- Will worsen over time: row count grows year-on-year, so latency will increase. Revisit when it becomes user-noticeable at production scale.
+
 <!-- Add new entries below this line -->

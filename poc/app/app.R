@@ -24,16 +24,35 @@ suppressPackageStartupMessages({
 
 DATA_PATH <- "public_slim.csv"
 
+# Sentinel strings that all mean "no usable value".
+# NOTE (Decision 012): these are collapsed to "Missing" for display only.
+# The source distinctions (blank vs NULL vs "NA" string etc.) are preserved
+# in the .sav and full_restricted.parquet — never alter those upstream files.
+MISSING_STRINGS <- c("", "NA", "NULL", "null", "N/A", "n/a",
+                     "Error", "error", "Inf", "-Inf")
+
+normalise_cat <- function(x) {
+  x[is.na(x) | trimws(x) %in% MISSING_STRINGS] <- "Missing"
+  x
+}
+
+FILTER_COLS <- c("sex", "location_of_death", "primary_substance",
+                 "secondary_substances", "cause_of_death")
+
 # Load once at startup and derive year from the "YYYY-MM" date_of_death string
 df_raw <- read.csv(DATA_PATH, stringsAsFactors = FALSE) |>
-  mutate(death_year = as.integer(substr(date_of_death, 1, 4)))
+  mutate(
+    death_year    = as.integer(substr(date_of_death, 1, 4)),
+    age_at_death  = suppressWarnings(as.numeric(age_at_death)),
+    across(any_of(FILTER_COLS), normalise_cat)
+  )
 
 year_range  <- range(df_raw$death_year,    na.rm = TRUE)
 age_range   <- range(df_raw$age_at_death,  na.rm = TRUE)
-locations   <- sort(unique(na.omit(df_raw$location_of_death)))
-substances  <- sort(unique(na.omit(df_raw$primary_substance)))
-sexes       <- sort(unique(na.omit(df_raw$sex)))
-causes      <- sort(unique(na.omit(df_raw$cause_of_death)))
+locations   <- sort(unique(df_raw$location_of_death))
+substances  <- sort(unique(df_raw$primary_substance))
+sexes       <- sort(unique(df_raw$sex))
+causes      <- sort(unique(df_raw$cause_of_death))
 
 core_cols      <- c("date_of_death", "age_at_death", "sex",
                     "location_of_death", "primary_substance",
@@ -95,6 +114,9 @@ ui <- fluidPage(
       hr(),
 
       actionButton("reset_filters", "Reset all filters",
+                   class = "btn-sm btn-outline-secondary", width = "100%"),
+      br(), br(),
+      actionButton("deselect_filters", "Deselect all filters",
                    class = "btn-sm btn-outline-secondary", width = "100%")
     ),
 
@@ -209,7 +231,7 @@ server <- function(input, output, session) {
     updateCheckboxGroupInput(session, "col_select", selected = character(0))
   })
 
-  # --- Reset -----------------------------------------------------------------
+  # --- Reset all filters -----------------------------------------------------
   observeEvent(input$reset_filters, {
     updateSliderInput(session, "year_range",   value = year_range)
     updateSliderInput(session, "age_range",    value = age_range)
@@ -217,6 +239,14 @@ server <- function(input, output, session) {
     updateCheckboxGroupInput(session, "location_sel",  selected = locations)
     updateCheckboxGroupInput(session, "substance_sel", selected = substances)
     updateCheckboxGroupInput(session, "cause_sel",     selected = causes)
+  })
+
+  # --- Deselect all filters --------------------------------------------------
+  observeEvent(input$deselect_filters, {
+    updateCheckboxGroupInput(session, "sex_sel",       selected = character(0))
+    updateCheckboxGroupInput(session, "location_sel",  selected = character(0))
+    updateCheckboxGroupInput(session, "substance_sel", selected = character(0))
+    updateCheckboxGroupInput(session, "cause_sel",     selected = character(0))
   })
 
   # --- Summary stats ---------------------------------------------------------
