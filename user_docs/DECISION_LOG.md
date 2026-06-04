@@ -74,6 +74,21 @@
 - IMPORTANT: This may change at a later date.
 
 
+## 008. Switch to agent-based coding via Claude Code   (2026-06-03, by human+claude)
+- Decision: All future coding work will be done using Claude Code (agentic CLI), operating directly on the local repo, rather than via web chat with copy-pasted code.
+- Why: More efficient multi-file builds, tighter feedback loop, no manual file-pasting, and better version control integration.
+- Rules out / supersedes: Decision 007 (web-only workflow). Web chat may still be used for design discussion, but code production moves to Claude Code.
+
 ---
+
+## 009. POC public viewer — local Shiny app first, Shinylive export later   (2026-06-03, by human+claude)
+- Decision: Build the public viewer as a standard local Shiny app (`poc/app/app.R`) and validate it fully before attempting Shinylive export.
+- Why: Shinylive/webR compatibility of `arrow` (parquet reader) is an open risk noted in ARCHITECTURE.md. Validating the app logic locally first separates UI/UX concerns from the WASM packaging concern.
+- Rules out: Attempting `shinylive::export()` before the local app is confirmed working.
+
+## 010. request.json schema v1.1 — add columns_selected field   (2026-06-04, by human+claude)
+- Decision: The `request.json` produced by the public app now includes a `columns_selected` array alongside the existing `filters` block. Schema version bumped from 1.0 → 1.1.
+- Why: The CSV download was updated to respect the user's column selection on the Data tab; the JSON must carry the same information so the fulfilment GUI can reproduce the exact extract (rows AND columns) the requester saw.
+- Rules out: The fulfilment GUI (Component 3) reading only `filters` from the request file — it must also apply `columns_selected` to the full-detail extract.
 
 <!-- Add new entries below this line -->

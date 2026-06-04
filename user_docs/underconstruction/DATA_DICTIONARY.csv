@@ -1,4 +1,3 @@
-THIS FILE IS CURRENTLY A FILLER VERSION TREAT IT AS REPRESENTATIVE BUT NOT AUTHORITATIVE,,,,,, 
 column_name,label,tier,in_poc,public_transform,data_type,notes
 case_id,Internal case reference,never,no,removed,string,Replace with surrogate key if a join key is needed
 deceased_name,Full name of deceased,never,no,removed,string,Never exposed in any tier output
@@ -15,5 +14,38 @@ cause_of_death,Cause of death,public,yes,as-is,string,Core field
 coroner_notes,Coroner free-text notes,restricted,no,full-tier-only,string,Free text; full tier only
 next_of_kin_name,Next of kin name,never,no,removed,string,LIVING third party — confirm treatment
 referring_officer,Referring officer,restricted,no,full-tier-only,string,Confirm treatment
-EXAMPLE_filler_col,Sparse/rarely-used field,restricted,no,full-tier-only,string,One of the ~650 rarely-used columns; default to restricted unless promoted
-FILL_IN_REMAINING_COLUMNS,,,,,,Add one row per source column. tier = public|restricted|never. in_poc = yes|no. public_transform = as-is|year-month|removed|full-tier-only|<custom>
+flag_01,Synthetic flag field 01,public,yes,as-is,string,Synthetic POC field
+metric_02,Synthetic metric field 02,public,yes,as-is,numeric,Synthetic POC field
+flag_03,Synthetic flag field 03,public,yes,as-is,string,Synthetic POC field
+metric_04,Synthetic metric field 04,public,yes,as-is,numeric,Synthetic POC field
+flag_05,Synthetic flag field 05,public,yes,as-is,string,Synthetic POC field
+metric_06,Synthetic metric field 06,public,yes,as-is,numeric,Synthetic POC field
+flag_07,Synthetic flag field 07,public,yes,as-is,string,Synthetic POC field
+metric_08,Synthetic metric field 08,public,yes,as-is,numeric,Synthetic POC field
+flag_09,Synthetic flag field 09,public,yes,as-is,string,Synthetic POC field
+metric_10,Synthetic metric field 10,public,yes,as-is,numeric,Synthetic POC field
+flag_11,Synthetic flag field 11,public,yes,as-is,string,Synthetic POC field
+metric_12,Synthetic metric field 12,public,yes,as-is,numeric,Synthetic POC field
+flag_13,Synthetic flag field 13,public,yes,as-is,string,Synthetic POC field
+metric_14,Synthetic metric field 14,public,yes,as-is,numeric,Synthetic POC field
+flag_15,Synthetic flag field 15,public,yes,as-is,string,Synthetic POC field
+metric_16,Synthetic metric field 16,public,yes,as-is,numeric,Synthetic POC field
+flag_17,Synthetic flag field 17,public,yes,as-is,string,Synthetic POC field
+metric_18,Synthetic metric field 18,public,yes,as-is,numeric,Synthetic POC field
+flag_19,Synthetic flag field 19,public,yes,as-is,string,Synthetic POC field
+metric_20,Synthetic metric field 20,public,yes,as-is,numeric,Synthetic POC field
+flag_21,Synthetic flag field 21,public,yes,as-is,string,Synthetic POC field
+metric_22,Synthetic metric field 22,public,yes,as-is,numeric,Synthetic POC field
+flag_23,Synthetic flag field 23,public,yes,as-is,string,Synthetic POC field
+metric_24,Synthetic metric field 24,public,yes,as-is,numeric,Synthetic POC field
+flag_25,Synthetic flag field 25,public,yes,as-is,string,Synthetic POC field
+metric_26,Synthetic metric field 26,public,yes,as-is,numeric,Synthetic POC field
+flag_27,Synthetic flag field 27,public,yes,as-is,string,Synthetic POC field
+metric_28,Synthetic metric field 28,public,yes,as-is,numeric,Synthetic POC field
+flag_29,Synthetic flag field 29,public,yes,as-is,string,Synthetic POC field
+metric_30,Synthetic metric field 30,public,yes,as-is,numeric,Synthetic POC field
+flag_31,Synthetic flag field 31,public,yes,as-is,string,Synthetic POC field
+metric_32,Synthetic metric field 32,public,yes,as-is,numeric,Synthetic POC field
+flag_33,Synthetic flag field 33,public,yes,as-is,string,Synthetic POC field
+metric_34,Synthetic metric field 34,public,yes,as-is,numeric,Synthetic POC field
+flag_35,Synthetic flag field 35,public,yes,as-is,string,Synthetic POC field

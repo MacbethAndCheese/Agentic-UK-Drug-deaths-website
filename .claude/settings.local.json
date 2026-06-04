@@ -1,0 +1,11 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(Rscript *)",
+      "Bash(sudo Rscript *)",
+      "Bash(sudo apt-get install -y libuv1-dev)",
+      "Bash(/usr/local/share/nvm/versions/node/v24.16.0/bin/playwright install *)",
+      "Bash(grep -E \"^firefox$\")"
+    ]
+  }
+}

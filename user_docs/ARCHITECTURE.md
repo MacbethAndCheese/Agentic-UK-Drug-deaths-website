@@ -101,7 +101,9 @@ launcher). Designed for drag-and-click, no command line:
 - **Fulfil a request:** drag in the requester's `request.json` and point at the
   full data → click **Generate** → produces the full-detail extract (CSV/XLSX)
   ready to send. Reuses the *same* filter logic as the public app so "full"
-  means exactly the requester's selection.
+  means exactly the requester's selection. The JSON (schema v1.1) carries both
+  `filters` (row selection) and `columns_selected` (column selection); the
+  fulfilment GUI must honour both.
 - **Update the data:** drag in a new `.sav` → click **Update** → runs the ETL,
   regenerates both parquets, and (optionally) prints the one publish command.
 
