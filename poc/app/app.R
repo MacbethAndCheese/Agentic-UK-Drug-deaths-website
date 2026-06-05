@@ -361,7 +361,7 @@ server <- function(input, output, session) {
   # --- Download: CSV ---------------------------------------------------------
   output$dl_csv <- downloadHandler(
     filename = function() {
-      paste0("drug_deaths_", format(Sys.Date(), "%Y%m%d"), ".csv")
+      paste0("drug_deaths_", format(Sys.time(), "%Y-%m-%d_%H-%M"), ".csv")
     },
     content = function(file) {
       out_cols <- intersect(input$col_select, names(df_filtered()))
@@ -372,7 +372,7 @@ server <- function(input, output, session) {
 
   # --- Download: request JSON ------------------------------------------------
   output$dl_json <- downloadHandler(
-    filename = function() "request.json",
+    filename = function() paste0("request_", format(Sys.time(), "%Y-%m-%d_%H-%M"), ".json"),
     content = function(file) {
       selected_cols <- input$col_select
       if (length(selected_cols) == 0) selected_cols <- all_public_cols

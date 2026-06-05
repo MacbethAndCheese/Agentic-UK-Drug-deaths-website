@@ -11,7 +11,17 @@
       "Bash(python3 -c \"import json,sys; d=json.load\\(sys.stdin\\); print\\(list\\(d.keys\\(\\)\\)\\)\")",
       "Bash(python3 *)",
       "Bash(python3 -m http.server 8080)",
-      "Bash(echo \"Server PID: $!\")"
+      "Bash(echo \"Server PID: $!\")",
+      "Bash(git check-ignore *)",
+      "Bash(chmod +x *)",
+      "Bash(pip3 install *)",
+      "Bash(apt-get install *)",
+      "Bash(sudo apt-get install -y imagemagick)",
+      "Bash(convert --version)",
+      "Bash(identify \"/workspaces/Agentic-UK-Drug-deaths-website/Filler Icon.png\")",
+      "Bash(sudo apt-get install -y icnsutils)",
+      "Bash(convert '/workspaces/Agentic-UK-Drug-deaths-website/Filler Icon.png' -resize 48x48 /tmp/AppIcon.iconset/icon_48x48.png)",
+      "Bash(png2icns /workspaces/Agentic-UK-Drug-deaths-website/poc/fulfilment/AppIcon.icns /tmp/AppIcon.iconset/icon_16x16.png /tmp/AppIcon.iconset/icon_32x32.png /tmp/AppIcon.iconset/icon_48x48.png /tmp/AppIcon.iconset/icon_128x128.png /tmp/AppIcon.iconset/icon_256x256.png /tmp/AppIcon.iconset/icon_512x512.png)"
     ]
   }
 }

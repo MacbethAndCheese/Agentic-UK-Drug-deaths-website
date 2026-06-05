@@ -108,4 +108,10 @@
 - Likely solution when addressed: pre-aggregate chart data (counts by year, substance, location, age band) at ETL time and ship lookup tables alongside the CSV. The app then joins rather than group-summarises, cutting webR work dramatically. This will need design discussion before implementation.
 - Will worsen over time: row count grows year-on-year, so latency will increase. Revisit when it becomes user-noticeable at production scale.
 
+## 014. .gitignore must be updated alongside any new data folder structure   (2026-06-04, by human+claude)
+- Decision: As a standing rule, any new `data/full/` or `data/private/` style folder created during the move from POC to production must have a corresponding `.gitignore` rule added at the same time. The current rule only covers `poc/data/full/`.
+- Why: The POC `.gitignore` was added retroactively after dummy data had already been committed. Real source data (`full_restricted.parquet`, `.sav`) must never reach GitHub. Adding the ignore rule alongside the folder creation prevents the gap.
+- Rules out: Creating a new full/private data folder without immediately adding a gitignore rule for it.
+- Action required: When scaffolding the real app folder structure, add `data/full/` and any equivalent private data paths to `.gitignore` before running any ETL.
+
 <!-- Add new entries below this line -->

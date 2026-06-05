@@ -1,0 +1,13 @@
+#!/bin/bash
+# Launcher script for the Drug Deaths Fulfilment app.
+# Opens a Terminal window so Shiny output and errors are visible.
+
+SCRIPT_DIR="$(cd "$(dirname "$0")" && pwd)"
+REPO_ROOT="$(cd "$SCRIPT_DIR/../../.." && pwd)"
+
+osascript <<EOF
+tell application "Terminal"
+  activate
+  do script "export PATH=/usr/local/bin:/usr/bin:/bin:/Library/Frameworks/R.framework/Resources/bin:\$PATH && cd '$REPO_ROOT' && echo 'Starting Drug Deaths Fulfilment app...' && (sleep 5 && open 'http://127.0.0.1:3839') & Rscript -e \"shiny::runApp('poc/fulfilment', port = 3839, launch.browser = FALSE)\""
+end tell
+EOF

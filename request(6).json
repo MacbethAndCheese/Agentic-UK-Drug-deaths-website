@@ -1,0 +1,91 @@
+{
+  "schema_version": "1.1",
+  "generated_at": "2026-06-04T12:18:08Z",
+  "n_records_public_subset": 6007,
+  "filters": {
+    "year_range": [
+      1948,
+      2085
+    ],
+    "age_range": [
+      17,
+      79
+    ],
+    "sex": [
+      "",
+      "Other"
+    ],
+    "location_of_death": [
+      "Central",
+      "Coastal",
+      "East",
+      "North",
+      "South",
+      "West"
+    ],
+    "primary_substance": [
+      "Alcohol-related",
+      "Cannabinoid",
+      "Depressant",
+      "Hallucinogen",
+      "Mixed",
+      "Opioid",
+      "Stimulant",
+      "Unknown"
+    ],
+    "cause_of_death": [
+      "Accidental overdose",
+      "Combined toxicity",
+      "Intentional",
+      "Medical complication",
+      "Undetermined"
+    ]
+  },
+  "columns_selected": [
+    "date_of_birth",
+    "date_of_death",
+    "age_at_death",
+    "sex",
+    "residence_postcode",
+    "location_of_death",
+    "primary_substance",
+    "secondary_substances",
+    "cause_of_death",
+    "flag_01",
+    "metric_02",
+    "flag_03",
+    "metric_04",
+    "flag_05",
+    "metric_06",
+    "flag_07",
+    "metric_08",
+    "flag_09",
+    "metric_10",
+    "flag_11",
+    "metric_12",
+    "flag_13",
+    "metric_14",
+    "flag_15",
+    "metric_16",
+    "flag_17",
+    "metric_18",
+    "flag_19",
+    "metric_20",
+    "flag_21",
+    "metric_22",
+    "flag_23",
+    "metric_24",
+    "flag_25",
+    "metric_26",
+    "flag_27",
+    "metric_28",
+    "flag_29",
+    "metric_30",
+    "flag_31",
+    "metric_32",
+    "flag_33",
+    "metric_34",
+    "flag_35"
+  ],
+  "note": "This file captures the filter selection and column selection applied to the anonymised public dataset. Send to the data owner to request the corresponding full-detail extract."
+}

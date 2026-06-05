@@ -48,7 +48,12 @@ rsconnect/
 # .sav Files
 *.sav
 
-# Ignore private files
+# Full / restricted data — never commit real or dummy source data
+# poc/data/full/ holds the source .sav, dummy parquet, and full_restricted.parquet.
+# All of these must stay local only; real data landing here must never be pushed.
+poc/data/full/
+
+# Ignore private files (legacy rule — real protection is the line above)
 data/private/
 
 
