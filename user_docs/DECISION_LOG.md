@@ -114,4 +114,9 @@
 - Rules out: Creating a new full/private data folder without immediately adding a gitignore rule for it.
 - Action required: When scaffolding the real app folder structure, add `data/full/` and any equivalent private data paths to `.gitignore` before running any ETL.
 
+## 015. Shinylive export lives in docs/ due to GitHub Pages constraints   (2026-06-05, by human+claude)
+- Decision: The compiled Shinylive app is exported to `docs/` at the repo root rather than inside `poc/`. GitHub Pages requires serving from either the repo root or a folder named `docs/` on the main branch.
+- Why: Fastest path to a live public URL at zero cost. The structural awkwardness was accepted as a POC compromise.
+- Rules out / watch point: This is not the right structure for production. The preferred approach when building the real app is to serve GitHub Pages from a dedicated `gh-pages` branch, keeping `main` clean with source code only and no compiled output. This should be revisited before the production scaffold.
+
 <!-- Add new entries below this line -->
