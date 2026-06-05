@@ -119,4 +119,13 @@
 - Why: Fastest path to a live public URL at zero cost. The structural awkwardness was accepted as a POC compromise.
 - Rules out / watch point: This is not the right structure for production. The preferred approach when building the real app is to serve GitHub Pages from a dedicated `gh-pages` branch, keeping `main` clean with source code only and no compiled output. This should be revisited before the production scaffold.
 
+## 016. Data cleaning phase required before production ETL   (2026-06-05, by human+claude)
+- Decision: A dedicated data cleaning phase must occur before the real `.sav` file enters the ETL pipeline. The source data is collated from many sources and is extremely dirty — extreme volumes of empty/null values, format inconsistencies, and naming changes across collection periods.
+- Why: Running the current ETL against the raw `.sav` would produce unreliable outputs. The cleaning requirements can only be scoped by the developer and client reviewing the real file together.
+- Required steps before production:
+  1. 1–2 hour working session with client to audit the raw `.sav` and document a field-by-field cleaning plan.
+  2. Develop a dedicated R cleaning script (upstream of `etl.R`) to normalise the raw file.
+  3. No production timeline to be set before step 1 has occurred.
+- Rules out: skipping straight from POC to production ETL without a cleaning step.
+
 <!-- Add new entries below this line -->

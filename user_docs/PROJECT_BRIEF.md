@@ -100,14 +100,60 @@ hosted online. This is the security spine of the design.
 - The client can run the update step by dragging a file and clicking once.
 - No real or full-detail data exists anywhere in the public app.
 
+## Phases and production prerequisites
+
+### Phase 1 — POC (complete as of 2026-06-05)
+Fully built on synthetic dummy data. Public viewer live on GitHub Pages. Fulfilment GUI working locally with double-click launcher. See `DECISION_LOG.md` entries 008–015.
+
+### Phase 2 — Data cleaning (REQUIRED before any production work)
+**Before the real `.sav` touches this pipeline, the following must happen:**
+
+1. **1–2 hour working session between client and developer** to audit the real `.sav` file together. The source data is collated from many sources and is extremely inconsistent — extreme volumes of empty/null values, shifting field formats, and naming inconsistencies across collection periods.
+2. **Output of that session:** a field-by-field cleaning plan, documented in a new spec or appended to `DATA_DICTIONARY.csv`.
+3. **Cleaning code:** a dedicated R cleaning script (either in this repo or a new one) that normalises the raw `.sav` before it enters the ETL. This sits upstream of `etl.R` in the pipeline.
+
+This phase cannot be skipped or estimated without first seeing the real data with the client. No production timeline should be set before this session has happened.
+
+### Phase 3 — Production scaffold
+Address the structural issues identified in the 2026-06-05 code review (see `CODE_REVIEW_LOG.md`) before running the ETL against real data:
+- New folder structure with hard public/private separation
+- gh-pages branch strategy (remove compiled Shinylive from main)
+- Design decision on full-extract date transforms
+- Quick code fixes (shared utils, ETL assertions, NA age handling)
+
+### Phase 4 — Production
+Run ETL against real cleaned data, validate outputs, go live.
+
+### Phase 5 — Update app (pencilled in, not yet designed)
+A second double-click `.app` launcher for the client to handle the full
+data-refresh cycle when a new `.sav` arrives. Intended workflow:
+
+1. Client drops new `.sav` into the data folder
+2. Double-clicks the **"Update Data"** app
+3. App runs: cleaning script → ETL → Shinylive export → git commit + push
+4. Live site is updated with no terminal or manual steps
+
+**Authentication:** SSH key approach — one-time setup on the client's Mac,
+works silently from shell scripts indefinitely with no expiry or password
+prompts. More secure than stored passwords.
+
+**Dependency:** the cleaning script (Phase 2) must be solid before this is
+reliable. The update app is only as good as the cleaning code upstream of it.
+
+**Git push option:** if SSH feels like too much setup at the time, a fallback
+is to have the app open GitHub Desktop pointing at the repo instead of pushing
+directly — slightly more manual but zero new setup required.
+
 ## Open questions / TODO
 
-- [ ] Obtain the 700-column list and complete `DATA_DICTIONARY.csv`.
+- [ ] Schedule data audit session with client (Phase 2 prerequisite).
+- [ ] Obtain the full 700-column list and complete `DATA_DICTIONARY.csv`.
 - [ ] Confirm in-browser parquet reader works in webR (arrow vs nanoparquet vs
       DuckDB-WASM).
-- [ ] Choose the static host (GitHub Pages / Netlify / Cloudflare Pages).
+- [ ] Choose the static host (GitHub Pages confirmed viable; gh-pages branch strategy to implement).
 - [ ] Confirm postcode granularity is acceptable to the client.
-- [ ] [ANY CLIENT-SPECIFIC ITEMS]
+- [ ] Resolve full-extract date transform design decision (see CODE_REVIEW_LOG finding #1).
+- [ ] Complete DISCLOSURE_CONTROL.md sign-offs before any real data is published.
 
 ## Glossary
 

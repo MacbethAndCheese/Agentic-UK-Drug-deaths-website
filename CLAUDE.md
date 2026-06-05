@@ -2,9 +2,18 @@
 You are helping build a self-service tool for a drug-related-deaths dataset.
 Before doing anything, read these from the Project knowledge: `PROJECT_BRIEF.md`
 (the spec), `ARCHITECTURE.md` (the design), `DATA_DICTIONARY.csv` (per-column
-rules),  `DISCLOSURE_CONTROL.md` (information about privacy rules and anonymisation standards), and `DECISION_LOG.md` (settled decisions and why). Treat them as the
-source of truth. If a request conflicts with them, flag it rather than silently
-diverging.
+rules),  `DISCLOSURE_CONTROL.md` (information about privacy rules and anonymisation standards), `DECISION_LOG.md` (settled decisions and why), and
+`CODE_REVIEW_LOG.md` (all code review findings — check status before coding to
+avoid re-introducing resolved issues, and update finding statuses when fixes are
+applied). Treat them as the source of truth. If a request conflicts with them,
+flag it rather than silently diverging.
+
+## Session hygiene
+- The human will ask "anything to update before I clear?" before issuing `/clear`.
+  When asked, check whether new commands or skills were introduced in the session
+  and append them to `user_docs/CLAUDE_COMMANDS.md` before they clear.
+  Note: `/clear` executes immediately with no warning, so this only works if the
+  human prompts first — which they intend to do every time.
 
 ## Output style
 - **Produce files/artifacts, not prose.** When asked to write code or a

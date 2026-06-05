@@ -21,7 +21,13 @@
       "Bash(identify \"/workspaces/Agentic-UK-Drug-deaths-website/Filler Icon.png\")",
       "Bash(sudo apt-get install -y icnsutils)",
       "Bash(convert '/workspaces/Agentic-UK-Drug-deaths-website/Filler Icon.png' -resize 48x48 /tmp/AppIcon.iconset/icon_48x48.png)",
-      "Bash(png2icns /workspaces/Agentic-UK-Drug-deaths-website/poc/fulfilment/AppIcon.icns /tmp/AppIcon.iconset/icon_16x16.png /tmp/AppIcon.iconset/icon_32x32.png /tmp/AppIcon.iconset/icon_48x48.png /tmp/AppIcon.iconset/icon_128x128.png /tmp/AppIcon.iconset/icon_256x256.png /tmp/AppIcon.iconset/icon_512x512.png)"
+      "Bash(png2icns /workspaces/Agentic-UK-Drug-deaths-website/poc/fulfilment/AppIcon.icns /tmp/AppIcon.iconset/icon_16x16.png /tmp/AppIcon.iconset/icon_32x32.png /tmp/AppIcon.iconset/icon_48x48.png /tmp/AppIcon.iconset/icon_128x128.png /tmp/AppIcon.iconset/icon_256x256.png /tmp/AppIcon.iconset/icon_512x512.png)",
+      "Bash(git -C /workspaces/Agentic-UK-Drug-deaths-website ls-files --others --exclude-standard poc/data/public/)",
+      "Bash(git -C /workspaces/Agentic-UK-Drug-deaths-website status poc/data/public/)",
+      "Bash(git -C /workspaces/Agentic-UK-Drug-deaths-website status --short)",
+      "Bash(git -C /workspaces/Agentic-UK-Drug-deaths-website check-ignore -v poc/data/public/public_slim.csv poc/data/public/public_slim.parquet)",
+      "Bash(git -C /workspaces/Agentic-UK-Drug-deaths-website check-ignore -v poc/fulfilment/full_extract_test.csv)",
+      "Bash(git *)"
     ]
   }
 }
